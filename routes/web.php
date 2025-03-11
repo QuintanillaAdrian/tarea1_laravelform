@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/contact', function () {
+Route::get('/', function () {
     return view('contact_form');
 });
 
