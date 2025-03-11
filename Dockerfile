@@ -24,18 +24,6 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
 RUN chmod -R 777 storage bootstrap/cache
 
 RUN chmod -R 777 /var/www/html/database/database.sqlite
-
-# Configurar Apache para que sirva desde el directorio public de Laravel
-RUN echo '<VirtualHost *:80>' > /etc/apache2/sites-available/000-default.conf \
-       && echo '    DocumentRoot /var/www/html/public' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '    <Directory /var/www/html/public>' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '        AllowOverride All' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '        Require all granted' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '    </Directory>' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '    ErrorLog ${APACHE_LOG_DIR}/error.log' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '    CustomLog ${APACHE_LOG_DIR}/access.log combined' >> /etc/apache2/sites-available/000-default.conf \
-       && echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf
-
        
 # Habilitar mod_rewrite y headers en Apache
 RUN a2enmod rewrite headers
